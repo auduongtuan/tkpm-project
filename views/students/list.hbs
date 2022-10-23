@@ -1,0 +1,32 @@
+<div class="d-inline-flex align-items-center mb-4">
+<h1 class="h2">Danh sách học sinh</h1>
+<a href="/students/create" class="btn btn-primary btn-sm ms-4">Tiếp nhận học sinh</a>
+</div>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Họ tên</th>
+      <th scope="col">Ngày sinh</th>
+      <th scope="col">Giới tính</th>
+      <th scope="col">Lớp</th>
+      <th scope="col">Địa chỉ</th>
+      <th scope="col">Email</th>
+      <th scope="col" class="text-center">Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each students}}
+    <tr>
+      <td>{{fullname}}</td>
+      <td>{{birthdate}}</td>
+      <td>{{gender}}</td>
+      <td>{{classroom.name}}</td>
+      <td>{{address}}</td>
+      <td>{{email}}</td>
+      <td class="text-center"><a href="/students/edit/{{id}}" class="btn btn-outline-secondary btn-sm" href="/">Chỉnh sửa</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

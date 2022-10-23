@@ -1,0 +1,30 @@
+<div class="d-inline-flex align-items-center mb-4">
+<h1 class="h2">Danh sách lớp học</h1>
+<a href="/subjects/create" class="btn btn-primary btn-sm ms-4">Tạo môn học</a>
+</div>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Tên môn học</th>
+      <th scope="col" class="text-center">Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each subjects}}
+    <tr>
+      <td>{{name}}</td>
+      <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="/">Sửa</a></td>
+    </tr>
+    {{/each}}
+
+    {{!-- <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr> --}}
+
+  </tbody>
+</table>

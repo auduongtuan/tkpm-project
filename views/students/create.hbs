@@ -1,0 +1,60 @@
+<h1 class="h2 mb-3">Tiếp nhận học sinh</h1>
+
+{{#if message}}
+<div class="alert alert-{{messageType}}" role="alert">
+{{{message}}}
+</div>
+{{/if}}
+
+<form action="/students/create" method="post">
+  <div class="mb-3">
+    <label for="fullname" class="form-label">Họ tên</label>
+    <input id="fullname" type="text" name="fullname" class="form-control" value="{{student.fullname}}" required />
+    {{! <div class="form-text">We'll never share your email with anyone else.</div> }}
+  </div>
+  <div class="mb-3">
+    <label for="gender" class="form-label">Giới tính</label>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="gender" id="gender0" value="0" {{checked student.gender 0}}>
+      <label class="form-check-label" for="gender0">
+        Nam
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="gender" id="gender1" value="1" {{checked student.gender 1}}>
+      <label class="form-check-label" for="gender1">
+        Nữ
+      </label>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="birthdate" class="form-label">Ngày sinh</label>
+    <input id="birthdate" type="text" name="birthdate" class="form-control" value="{{student.birthdate}}" required />
+    <div class="form-text">Nhập theo MM/dd/yyyy hoặc yyyy/MM/dd</div>
+
+  </div>
+  <div class="mb-3">
+    <label for="address" class="form-label">Địa chỉ</label>
+    <input id="address" type="text" name="address" class="form-control" value="{{student.address}}" required />
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input id="email" type="text" name="email" class="form-control" value="{{student.email}}" required />
+  </div>
+  <div class="mb-4">
+    <label for="classroomId" class="form-label">Lớp</label>
+    <select class="form-select" aria-label="Classroom" name="classroomId" value="{{student.classroomId}}">
+      <option value="" {{selected student.classroomId ''}}>Chọn lớp</option>
+      {{#each classrooms}}
+      <option value="{{id}}" {{selected ../student.classroomId id}}>{{name}}</option>
+      {{/each}}
+    </select>
+    <div class="form-text">Chọn lớp hoặc để trống.</div>
+
+  </div>
+  {{! <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div> }}
+  <button type="submit" class="btn btn-primary">Tiếp nhận học sinh</button>
+</form>

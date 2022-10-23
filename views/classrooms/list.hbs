@@ -1,0 +1,36 @@
+<div class="d-inline-flex align-items-center mb-4">
+<h1 class="h2">Danh sách lớp học</h1>
+<a href="/classrooms/create" class="btn btn-primary btn-sm ms-4">Tạo lớp học</a>
+</div>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Tên lớp</th>
+      <th scope="col">Khối</th>
+      <th scope="col">Niên khoá</th>
+      <th scope="col" class="text-end">Sỉ số</th>
+      <th scope="col" class="text-center">Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each classrooms}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{grade}}</td>
+      <td>{{year}}</td>
+      <td class="text-end">{{students.length}}</td>
+      <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="/">Lập danh sách</a></td>
+    </tr>
+    {{/each}}
+
+    {{!-- <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr> --}}
+
+  </tbody>
+</table>

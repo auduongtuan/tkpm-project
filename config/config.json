@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "admin",
+    "database": "tkpmdb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "yaflszbjaeyzba",
+    "password": "fa34b01502dd096b3c8651cd1124ed9640bb0c7fbd0801218a017ba885339273",
+    "database": "d1kq0mtroibtcj",
+    "host": "ec2-3-214-2-141.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  }
+}
