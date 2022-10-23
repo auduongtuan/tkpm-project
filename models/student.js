@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const {getAge} = require("../helpers/common");
 module.exports = (sequelize, DataTypes) => {
   class Student extends Model {
     /**
@@ -22,21 +23,28 @@ module.exports = (sequelize, DataTypes) => {
       gender: DataTypes.INTEGER,
       birthdate: {
         type: DataTypes.DATE,
-        get: function () {
-          return this.getDataValue("birthdate").toLocaleString("vi-VN", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          });
-        },
+        // get: function () {
+        //   return this.getDataValue("birthdate").toLocaleString("vi-VN", {
+        //     year: "numeric",
+        //     month: "2-digit",
+        //     day: "2-digit",
+        //   });
+        // },
       },
       address: DataTypes.STRING,
       email: DataTypes.STRING,
+      age: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return getAge(this.birthdate);
+        }
+      }
     },
     {
       sequelize,
       modelName: "Student",
     }
   );
+  
   return Student;
 };

@@ -19,6 +19,7 @@
     "express-handlebars-paginate": "^1.0.3",
     "express-session": "^1.17.3",
     "express-validator": "^6.14.2",
+    "handlebars-dateformat": "^1.1.3",
     "jsonwebtoken": "^8.5.1",
     "node-mailjet": "^5.1.1",
     "pg": "^8.8.0",

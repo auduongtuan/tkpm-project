@@ -1,0 +1,17 @@
+<h1 class="h2 mb-3">Chỉnh sửa môn học</h1>
+
+{{#if message}}
+<div class="alert alert-{{messageType}}" role="alert">
+{{{message}}}
+</div>
+{{/if}}
+
+<form action="/subjects/edit/{{subject.id}}" method="post">
+  <div class="mb-3">
+    <label for="name" class="form-label">Tên môn học</label>
+    <input id="name" type="text" name="name" class="form-control" value="{{subject.name}}" required />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Lưu môn học</button>
+
+</form>

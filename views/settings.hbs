@@ -1,0 +1,36 @@
+<h1 class="h2 mb-3">Cài đặt quy định</h1>
+
+{{#if message}}
+<div class="alert alert-{{messageType}}" role="alert">
+{{{message}}}
+</div>
+{{/if}}
+
+<form action="/settings" method="post">
+ <div class="mb-3 row">
+    <label for="minStudentAge" class="col-sm-6 col-form-label">Tuổi học sinh tối thiểu</label>
+    <div class="col-sm-4">
+      <input type="number" class="form-control" name="minStudentAge" id="minStudentAge" value="{{setting.minStudentAge}}">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="maxStudentAge" class="col-sm-6 col-form-label">Tuổi học sinh tối đa</label>
+    <div class="col-sm-4">
+      <input type="number" class="form-control" name="maxStudentAge" id="maxStudentAge" value="{{setting.maxStudentAge}}">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="maxStudentQuantity" class="col-sm-6 col-form-label">Số lượng học sinh tối đa trong lớp</label>
+    <div class="col-sm-4">
+      <input type="number" class="form-control" name="maxStudentQuantity" id="maxStudentQuantity" value="{{setting.maxStudentQuantity}}">
+    </div>
+  </div>
+  <div class="mb-4 row">
+    <label for="passScore" class="col-sm-6 col-form-label">Điểm đạt môn</label>
+    <div class="col-sm-4">
+      <input type="number" class="form-control" name="passScore" id="passScore" value="{{setting.passScore}}">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Lưu quy định</button>
+
+</form>

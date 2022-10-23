@@ -29,9 +29,8 @@
   </div>
   <div class="mb-3">
     <label for="birthdate" class="form-label">Ngày sinh</label>
-    <input id="birthdate" type="text" name="birthdate" class="form-control" value="{{student.birthdate}}" required />
-    <div class="form-text">Nhập theo MM/dd/yyyy hoặc yyyy/MM/dd</div>
-
+    <input id="birthdate" type="text" name="birthdate" class="form-control" value="{{dateFormat student.birthdate "MM/DD/yyyy"}}" required />
+    <div class="form-text">Nhập theo MM/DD/yyyy hoặc yyyy/MM/DD</div>
   </div>
   <div class="mb-3">
     <label for="address" class="form-label">Địa chỉ</label>

@@ -14,39 +14,41 @@
 
   <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+      {{!-- <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg> --}}
+      <i class="bi bi-kanban-fill me-2" style="font-size: 32px"></i>
       <span class="fs-4">QL Học sinh</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="/classrooms/list" class="nav-link active" aria-current="page">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-          Lớp học
-        </a>
-      </li>
       <li>
-        <a href="/students/list" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+        <a href="/students/list" class="nav-link {{#ifEquals page "student"}}active{{else}}text-white{{/ifEquals}}">
+          <i class="bi bi-person-fill me-2"></i>
           Học sinh
         </a>
       </li>
+      <li class="nav-item">
+        <a href="/classrooms/list" class="nav-link {{#ifEquals page "classroom"}}active{{else}}text-white{{/ifEquals}}" aria-current="page">
+          <i class="bi bi-people-fill me-2"></i>
+          Lớp học
+        </a>
+      </li>
+     
       <li>
-        <a href="/subjects/list" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+        <a href="/subjects/list" class="nav-link {{#ifEquals page "subject"}}active{{else}}text-white{{/ifEquals}}">
+          <i class="bi bi-book-fill me-2"></i>
           Môn học
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-          Products
+        <a href="/scores" class="nav-link {{#ifEquals page "score"}}active{{else}}text-white{{/ifEquals}}">
+          <i class="bi bi-pen-fill me-2"></i>
+          Bảng điểm
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-          Customers
+        <a href="/settings" class="nav-link {{#ifEquals page "setting"}}active{{else}}text-white{{/ifEquals}}">
+          <i class="bi bi-gear-fill me-2"></i>
+          Cài đặt
         </a>
       </li>
     </ul>
@@ -74,5 +76,7 @@
 
 </main>
   <script src="/js/bootstrap.min.js"></script>
+<script src="/main.js"></script>
+
 </body>
 </html>

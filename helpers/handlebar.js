@@ -34,4 +34,9 @@ helpers.selected = function(value, test) {
     return value==test ? 'selected' : '';
 };
 
+helpers.gender = function(value) {
+    return value==1 ? 'Nữ' : 'Nam';
+}
+
+
 module.exports = helpers;

@@ -1,12 +1,12 @@
 const controller = {};
 const models = require("../models");
-const Subject = models.Subject;
+const Score = models.Score;
 const { Op } = require("sequelize");
 
 controller.create = async ({name}) => {
   try {
-    const subject = await Subject.create({name});
-    return subject;
+    const score = await Score.create({name});
+    return score;
   }
   catch(err) {
     console.log(err);
@@ -16,14 +16,14 @@ controller.create = async ({name}) => {
 
 
 controller.getAll = async () => {
-  return await Subject.findAll();
+  return await Score.findAll();
 }
 
 
 
 
 controller.getById = async (id) => {
-  return await Subject.findByPk(id, {
+  return await Score.findByPk(id, {
   });
 }
 

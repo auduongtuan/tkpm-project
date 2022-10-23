@@ -1,6 +1,10 @@
 <h1 class="h2 mb-3">Tạo môn học</h1>
 
-{{message}}
+{{#if message}}
+<div class="alert alert-{{messageType}}" role="alert">
+{{{message}}}
+</div>
+{{/if}}
 
 <form action="/subjects/create" method="post">
   <div class="mb-3">

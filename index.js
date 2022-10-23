@@ -33,12 +33,14 @@ const hbs = expressHbs.create({
   partialsDir: __dirname + "/views/partials/",
   helpers: {
     ...helpers,
+    dateFormat: require('handlebars-dateformat'),
     // createPagination: paginateHelper.createPagination,
   },
   runtimeOptions: {
     allowProtoPropertiesByDefault: true,
   },
 });
+
 
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
@@ -47,10 +49,8 @@ app.use("/", require("./routes/indexRouter"));
 app.use("/students", require("./routes/studentRouter"));
 app.use("/classrooms", require("./routes/classroomRouter"));
 app.use("/subjects", require("./routes/subjectRouter"));
-// app.use("/cart", require("./routes/cartRouter"));
-// app.use("/comments", require("./routes/commentRouter"));
-// app.use("/reviews", require("./routes/reviewRouter"));
-// app.use("/users", require("./routes/userRouter"));
+app.use("/settings", require("./routes/settingRouter"));
+app.use("/scores", require("./routes/scoreRouter"));
 
 app.get("/sync", (req, res) => {
   let models = require("./models");

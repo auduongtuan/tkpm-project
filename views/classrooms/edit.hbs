@@ -1,4 +1,4 @@
-<h1 class="h2 mb-3">Tạo lớp</h1>
+<h1 class="h2 mb-3">Chỉnh sửa lớp</h1>
 
 {{#if message}}
 <div class="alert alert-{{messageType}}" role="alert">
@@ -6,7 +6,7 @@
 </div>
 {{/if}}
 
-<form action="/classrooms/create" method="post">
+<form action="/classrooms/edit/{{classroom.id}}" method="post">
   <div class="mb-3">
     <label for="grade" class="form-label">Khối lớp</label>
     <input id="grade" type="text" name="grade" class="form-control" value="{{classroom.grade}}" />
@@ -22,6 +22,6 @@
     <div class="form-text">Chỉ nhập năm bắt đầu</div>
   </div>
 
-  <button type="submit" class="btn btn-primary">Tạo lớp</button>
+  <button type="submit" class="btn btn-primary">Chỉnh sửa lớp</button>
 
 </form>

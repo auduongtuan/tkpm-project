@@ -1,0 +1,60 @@
+<h1 class="h2 mb-1">Lập danh sách lớp {{classroom.name}}</h1>
+<p class="fs-5 mb-3 form-text">Niên khoá {{classroom.year}}</p>
+
+{{#if message}}
+<div class="alert alert-{{messageType}}" role="alert">
+{{{message}}}
+</div>
+{{/if}}
+
+<form action="/classrooms/assign/{{classroom.id}}" method="post">
+  {{!-- <div class="mb-3">
+    <label for="grade" class="form-label">Khối lớp</label>
+    <input id="grade" type="text" name="grade" class="form-control" value="{{classroom.grade}}" disabled />
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Tên lớp</label>
+    <input id="name" type="text" name="name" class="form-control" value="{{classroom.name}}" disabled />
+  </div>
+
+  <div class="mb-3">
+    <label for="year" class="form-label">Niên khoá</label>
+    <input id="year" type="text" name="year" class="form-control" value="{{classroom.year}}" disabled />
+  </div> --}}
+
+  <input type="hidden" name="studentIds" value="{{studentIds}}" />
+
+  <div class="mb-4">
+    <h4 class="mb-0">Danh sách học sinh</h4>
+    <div class="form-text mb-2">Chọn học sinh để sắp vào lớp.</div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Họ tên</th>
+          <th scope="col">Ngày sinh</th>
+          <th scope="col">Giới tính</th>
+          <th scope="col">Lớp hiện tại</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each students}}
+        <tr data-id="{{id}}" class="student-item">
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>{{fullname}}</td>
+          <td>{{dateFormat birthdate "DD/MM/yyyy"}}</td>
+          <td>{{gender gender}}</td>
+          <td>{{classroom.name}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Lưu danh sách</button>
+
+</form>
