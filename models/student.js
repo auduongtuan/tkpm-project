@@ -38,6 +38,18 @@ module.exports = (sequelize, DataTypes) => {
         get() {
           return getAge(this.birthdate);
         }
+      },
+      semester1AverageScore: {
+        type: DataTypes.VIRTUAL,
+        get() {
+
+        }
+      },
+      semester2AverageScore: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          
+        }
       }
     },
     {

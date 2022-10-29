@@ -52,5 +52,14 @@ router.post('/edit/:id', async (req, res) => {
   }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    await subjectService.delete(req.params.id);
+    res.status(200).json({state: true});
+  }
+  catch(err) {
+    res.status(500).json({state: false, message: err.message})
+  }
+});
 
 module.exports = router;

@@ -20,7 +20,13 @@ module.exports = (sequelize, DataTypes) => {
     semester: DataTypes.INTEGER,
     score15min: DataTypes.DOUBLE,
     scoreLesson: DataTypes.DOUBLE,
-    scoreFinal: DataTypes.DOUBLE
+    scoreFinal: DataTypes.DOUBLE,
+    scoreAverage: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return (this.score15min+this.scoreLesson*2+this.scoreFinal*3)/6;
+      }
+    },
   }, {
     sequelize,
     modelName: 'Score',

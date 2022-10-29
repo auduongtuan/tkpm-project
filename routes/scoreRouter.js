@@ -14,7 +14,63 @@ router.get("/", async (req, res) => {
   const students = await studentService.getAll();
   const classrooms = await classroomService.getAllWithStudents();
   const subjects = await subjectService.getAll();
-  res.render("scores", { students, classrooms, subjects });
+  const { classroomId, subjectId, semester, status } = req.query;
+  let message = null;
+  let messageType = null;
+  if (status == '1') {
+    message = "Cập nhật bảng điểm thành công!";
+    messageType = "success";
+  } else if (status == '0') {
+    message = "Đã có lỗi xảy ra vui lòng thử lại.";
+    messageType = "danger";
+  }
+  if (classroomId && subjectId) {
+    const classroom = await classroomService.getById(classroomId);
+    const subject = await subjectService.getById(subjectId);
+    if (classroom && subject) {
+      const scoreData = await scoreService.getScoreDataByCourse(
+        classroomId,
+        subjectId,
+        semester
+      );
+      return res.render("scores", {
+        students,
+        classrooms,
+        subjects,
+        classroom,
+        subject,
+        semester,
+        scoreData,
+        message,
+        messageType
+      });
+    }
+  } else {
+    return res.render("scores", { students, classrooms, subjects });
+  }
+});
+
+router.post("/update", async (req, res) => {
+  const { classroomId, subjectId, semester } = req.body;
+  console.log(req.body.scoreData);
+  const scoreData = JSON.parse(req.body.scoreData);
+
+  try {
+    await scoreService.updateScoresByCourse(
+      classroomId,
+      subjectId,
+      semester,
+      scoreData
+    );
+    return res.redirect(
+      `/scores?classroomId=${classroomId}&subjectId=${subjectId}&semester=${semester}&status=1`
+    );
+  } catch (err) {
+    return res.redirect(
+      `/scores?classroomId=${classroomId}&subjectId=${subjectId}&semester=${semester}&status=0`
+    );
+  }
+  
 });
 
 // router.post("/", async (req, res) => {
@@ -37,7 +93,7 @@ router.get("/", async (req, res) => {
 //         setting
 //       });
 //     }
-  
+
 //   } else {
 //     res.render("settings", {
 //       message: "Xin kiểm tra lại nội dung đã nhập",

@@ -41,17 +41,31 @@ const hbs = expressHbs.create({
   },
 });
 
+const isLoggedIn = (req, res, next) => {
+  if (req.session.user) {
+    res.locals.user = req.session.user;
+    next();
+  } else {
+    if(res.originUrl) {
+      res.redirect(`/users/login?returnURL=${res.originUrl}`);
+    } else {
+      res.redirect(`/users/login`);
+    }
+  }
+};
 
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 
-app.use("/", require("./routes/indexRouter"));
+app.use("/users", require("./routes/userRouter"));
+
+app.use("/", isLoggedIn, require("./routes/indexRouter"));
 app.use("/students", require("./routes/studentRouter"));
 app.use("/classrooms", require("./routes/classroomRouter"));
 app.use("/subjects", require("./routes/subjectRouter"));
 app.use("/settings", require("./routes/settingRouter"));
 app.use("/scores", require("./routes/scoreRouter"));
-
+app.use("/reports", require("./routes/reportRouter"));
 app.get("/sync", (req, res) => {
   let models = require("./models");
   models.sequelize.sync().then(() => {

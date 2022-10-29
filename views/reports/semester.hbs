@@ -1,0 +1,66 @@
+<h1 class="h2">Báo cáo tổng kết học kỳ</h1>
+
+
+<form action="/reports/semester" method="get">
+<p>Vui lòng chọn học kỳ và niên khoá muốn xem báo cáo.</p>
+
+  <div class="row">
+ <div class="mb-4 col">
+    {{!-- <label for="classroomId" class="form-label">Lớp</label> --}}
+    <select class="form-select" aria-label="Year" name="year" required>
+      <option value="" {{selected year ''}}>Chọn niên khoá</option>
+      {{#each years}}
+      <option value="{{this}}" {{selected ../year this}}>{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+
+ <div class="mb-4 col">
+    {{!-- <label for="classroomId" class="form-label">Môn</label> --}}
+    <select class="form-select" aria-label="Semester" name="semester" required>
+      <option value="">Chọn học kỳ</option>
+      <option value="1" {{selected semester "1"}}>Học kỳ 1</option>
+      <option value="2" {{selected semester "2"}}>Học kỳ 2</option>
+    </select>
+
+  </div>
+  <div class="col-1">
+  <input type="submit" class="btn btn-secondary" value="Xem báo cáo"></input>
+  </div>
+
+</form>
+
+
+{{#if classrooms}}
+
+
+
+  <div class="mb-4">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Lớp</th>
+          <th scope="col">Sĩ số</th>
+          <th scope="col">Số lượng đạt</th>
+          <th scope="col">Tỷ lệ</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each classrooms}}
+        <tr data-id="{{id}}" class="student-item">
+          <td>{{inc @index}}</td>
+          <td>{{name}}</td>
+          <td>{{students.length}}</td>
+          <td>{{passedQuantity}}</td>
+          <td>{{percentage passedQuantity students.length}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+
+</form>
+{{/if}}

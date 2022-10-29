@@ -1,12 +1,27 @@
 <div class="d-inline-flex align-items-center mb-4">
-<h1 class="h2">Danh sách học sinh</h1>
-<a href="/students/create" class="btn btn-primary btn-sm ms-4">Tiếp nhận học sinh</a>
+  <h1 class="h2">Danh sách học sinh</h1>
+  <a href="/students/create" class="btn btn-primary btn-sm ms-4">Tiếp nhận học
+    sinh</a>
 </div>
 
-
+<form class="input-group mb-4" action="/students/list" method="get">
+  <input
+    class="form-control"
+    type="search"
+    name="search"
+    placeholder="Nhập mã số hoặc tên học sinh để tra cứu"
+    aria-label="Search"
+    value="{{search}}"
+  />
+  <button
+    class="btn btn-outline-primary my-2 my-sm-0"
+    type="submit"
+  >Tra cứu</button>
+</form>
 <table class="table table-hover">
   <thead>
     <tr>
+      <th scope="col">Mã số</th>
       <th scope="col">Họ tên</th>
       <th scope="col">Ngày sinh</th>
       <th scope="col">Giới tính</th>
@@ -18,15 +33,24 @@
   </thead>
   <tbody>
     {{#each students}}
-    <tr>
-      <td>{{fullname}}</td>
-      <td>{{dateFormat birthdate "DD/MM/yyyy"}}</td>
-      <td>{{gender}}</td>
-      <td>{{classroom.name}}</td>
-      <td>{{address}}</td>
-      <td>{{email}}</td>
-      <td class="text-center"><a href="/students/edit/{{id}}" class="btn btn-outline-secondary btn-sm" href="/">Chỉnh sửa</a></td>
-    </tr>
+      <tr>
+        <td>{{id}}</td>
+        <td>{{fullname}}</td>
+        <td>{{dateFormat birthdate "DD/MM/yyyy"}}</td>
+        <td>{{gender}}</td>
+        <td>{{classroom.name}}</td>
+        <td>{{address}}</td>
+        <td>{{email}}</td>
+        <td class="text-center">
+          <a
+            href="/students/edit/{{id}}"
+            class="btn btn-outline-secondary btn-sm"
+            href="/"
+          >Sửa</a>
+          <a class="btn btn-outline-danger btn-sm delete-btn" data-action="/students/delete/{{id}}" data-name="học sinh {{fullname}}">Xoá</a>
+
+          </td>
+      </tr>
     {{/each}}
   </tbody>
 </table>

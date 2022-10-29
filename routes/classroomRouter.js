@@ -113,4 +113,14 @@ router.post("/assign/:id", async (req, res) => {
   // res.render('classrooms/assign', {classroom, students, studentIds: JSON.stringify(studentIds)});
 });
 
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    await classroomSerivce.delete(req.params.id);
+    res.status(200).json({state: true});
+  }
+  catch(err) {
+    res.status(500).json({state: false, message: err.message})
+  }
+});
+
 module.exports = router;

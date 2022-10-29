@@ -1,9 +1,9 @@
-const controller = {};
+const service = {};
 const models = require("../models");
 const Student = models.Student;
 const { Op } = require("sequelize");
 
-controller.create = async ({fullname, gender, birthdate, address, email, classroomId}) => {
+service.create = async ({fullname, gender, birthdate, address, email, classroomId}) => {
   if (!classroomId) classroomId = null;
   try {
     const student = await Student.create({fullname, gender, birthdate, address, email, classroomId});
@@ -16,16 +16,40 @@ controller.create = async ({fullname, gender, birthdate, address, email, classro
 }
 
 
-controller.getAll = async () => {
+service.getAll = async (args = {}) => {
   return await Student.findAll({
     include: [{
       model: models.Classroom,
       as: 'classroom'
-    }]
+    }],
+    order: [['id', 'ASC']],
+    ...args
   });
 }
 
-controller.getAllOrderedByClassroom = async () => {
+service.search = async (search) => {
+  const criteria = [
+    {
+      fullname: {
+        [Op.iLike]: `%${search}%`
+      }
+    }
+  ];
+  if(!isNaN(search)) {
+    criteria.push(
+      {
+        id: parseInt(search)
+      }
+    );
+  }
+  return await service.getAll({
+    where: {
+      [Op.or]: criteria
+    }
+  });
+}
+
+service.getAllOrderedByClassroom = async () => {
   return await Student.findAll({
     include: [{
       model: models.Classroom,
@@ -37,7 +61,7 @@ controller.getAllOrderedByClassroom = async () => {
   });
 }
 
-controller.getById = async (id) => {
+service.getById = async (id) => {
   return await Student.findByPk(id, {
     // include: [{
     //   model: models.Classroom,
@@ -46,7 +70,7 @@ controller.getById = async (id) => {
   });
 }
 
-controller.updateClassroomIds = async (classroomId, studentIds) => {
+service.updateClassroomIds = async (classroomId, studentIds) => {
   // reset students that not in student id list
   await Student.update({classroomId: null}, {
     where: {
@@ -63,6 +87,12 @@ controller.updateClassroomIds = async (classroomId, studentIds) => {
     }
   });
 }
+service.delete = async(id) => {
+  return await Student.destroy({
+    where: {
+      id: id
+    }
+  })
+}
 
-
-module.exports = controller;
+module.exports = service;

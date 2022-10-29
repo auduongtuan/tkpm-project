@@ -1,9 +1,9 @@
-const controller = {};
+const service = {};
 const models = require("../models");
 const Setting = models.Setting;
 const { Op } = require("sequelize");
 
-controller.getOrCreate = async () => {
+service.getOrCreate = async () => {
   try {
     const setting = await Setting.findOne();
     if (setting) {
@@ -24,8 +24,8 @@ controller.getOrCreate = async () => {
   }
 };
 
-controller.getAll = async () => {
+service.getAll = async () => {
   return await Classroom.findAll();
 };
 
-module.exports = controller;
+module.exports = service;

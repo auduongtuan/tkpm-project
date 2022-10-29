@@ -15,7 +15,10 @@
     {{#each subjects}}
     <tr>
       <td>{{name}}</td>
-      <td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="/subjects/edit/{{id}}">Sửa</a></td>
+      <td class="text-center">
+        <a class="btn btn-outline-secondary btn-sm" href="/subjects/edit/{{id}}">Sửa</a>
+        <a class="btn btn-outline-danger btn-sm delete-btn" data-action="/subjects/delete/{{id}}" data-name="môn {{name}}">Xoá</a>
+        </td>
     </tr>
     {{/each}}
 

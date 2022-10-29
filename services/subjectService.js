@@ -1,9 +1,9 @@
-const controller = {};
+const service = {};
 const models = require("../models");
 const Subject = models.Subject;
 const { Op } = require("sequelize");
 
-controller.create = async ({name}) => {
+service.create = async ({name}) => {
   try {
     const subject = await Subject.create({name});
     return subject;
@@ -15,17 +15,22 @@ controller.create = async ({name}) => {
 }
 
 
-controller.getAll = async () => {
+service.getAll = async () => {
   return await Subject.findAll();
 }
 
+service.delete = async(id) => {
+  return await Subject.destroy({
+    where: {
+      id: id
+    }
+  })
+}
 
-
-
-controller.getById = async (id) => {
+service.getById = async (id) => {
   return await Subject.findByPk(id, {
   });
 }
 
 
-module.exports = controller;
+module.exports = service;

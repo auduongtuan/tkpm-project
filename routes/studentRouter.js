@@ -12,8 +12,9 @@ router.use((req, res, next) => {
 
 router.get("/list", async (req, res) => {
   const classrooms = await classroomService.getAll();
-  const students = await studentService.getAll();
-  res.render("students/list", { classrooms, students });
+  const search = req.query.search;
+  const students = search ? await studentService.search(search) : await studentService.getAll();
+  res.render("students/list", { classrooms, students, search });
 });
 router.get("/create", async (req, res) => {
   const classrooms = await classroomService.getAll();
@@ -106,6 +107,16 @@ router.post("/create", async (req, res) => {
       student: req.body,
       classrooms,
     });
+  }
+});
+
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    await studentService.delete(req.params.id);
+    res.status(200).json({state: true});
+  }
+  catch(err) {
+    res.status(500).json({state: false, message: err.message})
   }
 });
 

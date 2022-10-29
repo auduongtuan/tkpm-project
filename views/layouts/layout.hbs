@@ -45,6 +45,18 @@
           Bảng điểm
         </a>
       </li>
+       <li>
+        <a href="/reports/subject" class="nav-link {{#ifEquals page "report-subject"}}active{{else}}text-white{{/ifEquals}}">
+          <i class="bi bi-file-ruled-fill me-2"></i>
+          Báo cáo môn
+        </a>
+      </li>
+      <li>
+        <a href="/reports/semester" class="nav-link {{#ifEquals page "report-semester"}}active{{else}}text-white{{/ifEquals}}">
+          <i class="bi bi bi-file-medical-fill me-2"></i>
+          Báo cáo học kỳ
+        </a>
+      </li>
       <li>
         <a href="/settings" class="nav-link {{#ifEquals page "setting"}}active{{else}}text-white{{/ifEquals}}">
           <i class="bi bi-gear-fill me-2"></i>
@@ -55,15 +67,20 @@
     <hr>
     <div class="dropdown">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
+        <div class="rounded-circle border d-flex justify-content-center align-items-center me-2"
+            style="width:32px;height:32px"
+          alt="Avatar">
+        <i class="bi bi-emoji-smile-fill text-info"></i>
+        </div>
+        <strong>{{user.fullname}}</strong>
+        
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
+        {{!-- <li><a class="dropdown-item" href="#">New project...</a></li>
         <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+        <li><a class="dropdown-item" href="#">Profile</a></li> --}}
+        {{!-- <li><hr class="dropdown-divider"></li> --}}
+        <li><a class="dropdown-item" href="/users/logout">Đăng xuất</a></li>
       </ul>
     </div>
   </div>
@@ -75,7 +92,9 @@
   </div>
 
 </main>
-  <script src="/js/bootstrap.min.js"></script>
+  {{!-- <script src="/js/bootstrap.min.js"></script> --}}
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/axios.min.js"></script>
 <script src="/main.js"></script>
 
 </body>

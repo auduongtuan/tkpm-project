@@ -1,78 +1,90 @@
 <h1 class="h2">Nhập bảng điểm</h1>
 
+
+<form action="/scores" method="get">
+<p>Vui lòng chọn lớp và môn muốn nhập điểm.</p>
+
+  <div class="row">
+ <div class="mb-4 col">
+    {{!-- <label for="classroomId" class="form-label">Lớp</label> --}}
+    <select class="form-select" aria-label="Classroom Id" name="classroomId"  required>
+      <option value="" {{selected student.classroomId ''}}>Chọn lớp</option>
+      {{#each classrooms}}
+      <option value="{{id}}" {{selected ../classroom.id id}}>{{name}} - {{year}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+ <div class="mb-4 col">
+    {{!-- <label for="classroomId" class="form-label">Môn</label> --}}
+    <select class="form-select" aria-label="Subject Id" name="subjectId"  required>
+      <option value="" {{selected subject.id ''}}>Chọn môn học</option>
+      {{#each subjects}}
+      <option value="{{id}}" {{selected ../subject.id id}}>{{name}}</option>
+      {{/each}}
+    </select>
+
+  </div>
+ <div class="mb-4 col">
+    {{!-- <label for="classroomId" class="form-label">Môn</label> --}}
+    <select class="form-select" aria-label="Semester" name="semester" required>
+      <option value="">Chọn học kỳ</option>
+      <option value="1" {{selected semester "1"}}>Học kỳ 1</option>
+      <option value="2" {{selected semester "2"}}>Học kỳ 2</option>
+    </select>
+
+  </div>
+  <div class="col-1">
+  <input type="submit" class="btn btn-secondary" value="Nhập điểm"></input>
+  </div>
+
+</form>
+
 {{#if message}}
 <div class="alert alert-{{messageType}}" role="alert">
 {{{message}}}
 </div>
 {{/if}}
 
-<p>Vui lòng chọn lớp và môn muốn nhập điểm.</p>
 
- <div class="mb-4">
-    <label for="classroomId" class="form-label">Lớp</label>
-    <select class="form-select" aria-label="Classroom" name="classroomId" value="{{student.classroomId}}">
-      <option value="" {{selected student.classroomId ''}}>Chọn lớp</option>
-      {{#each classrooms}}
-      <option value="{{id}}" {{selected ../student.classroomId id}}>{{name}}</option>
-      {{/each}}
-    </select>
-    <div class="form-text">Chọn lớp hoặc để trống.</div>
+{{#if classroom}}
 
-  </div>
+<form action="/scores/update" method="post">
 
- <div class="mb-4">
-    <label for="classroomId" class="form-label">Môn</label>
-    <select class="form-select" aria-label="Classroom" name="classroomId" value="{{student.classroomId}}">
-      <option value="" {{selected student.classroomId ''}}>Chọn môn học</option>
-      {{#each subjects}}
-      <option value="{{id}}" {{selected ../student.classroomId id}}>{{name}}</option>
-      {{/each}}
-    </select>
-    <div class="form-text">Chọn lớp hoặc để trống.</div>
-
-  </div>
-<form action="/classrooms/assign/{{classroom.id}}" method="post">
-  {{!-- <div class="mb-3">
-    <label for="grade" class="form-label">Khối lớp</label>
-    <input id="grade" type="text" name="grade" class="form-control" value="{{classroom.grade}}" disabled />
-  </div>
-  <div class="mb-3">
-    <label for="name" class="form-label">Tên lớp</label>
-    <input id="name" type="text" name="name" class="form-control" value="{{classroom.name}}" disabled />
-  </div>
-
-  <div class="mb-3">
-    <label for="year" class="form-label">Niên khoá</label>
-    <input id="year" type="text" name="year" class="form-control" value="{{classroom.year}}" disabled />
-  </div> --}}
-
-  <input type="hidden" name="studentIds" value="{{studentIds}}" />
+  <input type="hidden" name="classroomId" value="{{classroom.id}}" />
+  <input type="hidden" name="subjectId" value="{{subject.id}}" />
+  <input type="hidden" name="semester" value="{{semester}}" />
+  <input type="hidden" name="scoreData" value="{{json scoreData}}" />
 
   <div class="mb-4">
-    <h4 class="mb-0">Danh sách học sinh</h4>
-    <div class="form-text mb-2">Chọn học sinh để sắp vào lớp.</div>
+    <h4 class="mb-0">Danh sách học sinh lớp {{classroom.name}}</h4>
+    <div class="form-text mb-2">Nhập bảng điểm cho lớp {{classroom.name}} niên khoá {{classroom.year}}.</div>
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col"></th>
           <th scope="col">Họ tên</th>
           <th scope="col">Ngày sinh</th>
-          <th scope="col">Giới tính</th>
-          <th scope="col">Lớp hiện tại</th>
+          <th scope="col">Điểm 15 phút</th>
+          <th scope="col">Điểm 1 tiết</th>
+          <th scope="col">Điểm cuối HK</th>
         </tr>
       </thead>
       <tbody>
-        {{#each students}}
+        {{#each classroom.students}}
         <tr data-id="{{id}}" class="student-item">
-          <td>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox">
-            </div>
-          </td>
           <td>{{fullname}}</td>
           <td>{{dateFormat birthdate "DD/MM/yyyy"}}</td>
-          <td>{{gender gender}}</td>
-          <td>{{classroom.name}}</td>
+          {{#if (lookup ../scoreData id)}}
+          {{#with (lookup ../scoreData id)}}
+          <td><input type="number" data-student-id="{{../id}}" data-type="score15min" class="form-control form-control-sm score-input" value="{{score15min}}" /></td>
+          <td><input type="number" data-student-id="{{../id}}" data-type="scoreLesson" class="form-control form-control-sm score-input" value="{{scoreLesson}}" /></td>
+          <td><input type="number" data-student-id="{{../id}}" data-type="scoreFinal" class="form-control form-control-sm score-input" value="{{scoreFinal}}" /></td>
+          {{/with}}
+          {{else}}
+          <td><input type="number" data-student-id="{{id}}" data-type="score15min" class="form-control form-control-sm score-input" value="" /></td>
+          <td><input type="number" data-student-id="{{id}}" data-type="scoreLesson" class="form-control form-control-sm score-input" value="" /></td>
+          <td><input type="number" data-student-id="{{id}}" data-type="scoreFinal" class="form-control form-control-sm score-input" value="" /></td>
+          {{/if}}
         </tr>
         {{/each}}
       </tbody>
@@ -82,3 +94,4 @@
   <button type="submit" class="btn btn-primary">Lưu danh sách</button>
 
 </form>
+{{/if}}
