@@ -4,17 +4,6 @@ const {Score, Classroom, Student, Subject} = models;
 const subjectService = require("../services/subjectService");
 const { Op } = require("sequelize");
 
-// service.create = async ({name}) => {
-//   try {
-//     const score = await Score.create({name});
-//     return score;
-//   }
-//   catch(err) {
-//     console.log(err);
-//     return false;
-//   }
-// }
-
 service.getScoreDataByCourse = async (classroomId, subjectId, semester) => {
   const scores = await service.getScoresByCourse(
     classroomId,
