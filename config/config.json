@@ -17,7 +17,7 @@
     "username": "yxtcxcdmzsgecr",
     "password": "838d56651bc9d0da9aa6038d89dcde050c8efa40c0a20f53fc89c9c77d392827",
     "database": "dcankbosene8j7",
-    "host": "ec2-3-220-207-90.compute-1.amazonaws.com/",
+    "host": "ec2-3-220-207-90.compute-1.amazonaws.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
