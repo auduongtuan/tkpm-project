@@ -59,19 +59,20 @@ app.set("view engine", "hbs");
 
 app.use("/users", require("./routes/userRouter"));
 
-app.use("/", isLoggedIn, require("./routes/indexRouter"));
-app.use("/students", require("./routes/studentRouter"));
-app.use("/classrooms", require("./routes/classroomRouter"));
-app.use("/subjects", require("./routes/subjectRouter"));
-app.use("/settings", require("./routes/settingRouter"));
-app.use("/scores", require("./routes/scoreRouter"));
-app.use("/reports", require("./routes/reportRouter"));
+app.use("/students", isLoggedIn, require("./routes/studentRouter"));
+app.use("/classrooms", isLoggedIn, require("./routes/classroomRouter"));
+app.use("/subjects", isLoggedIn, require("./routes/subjectRouter"));
+app.use("/settings", isLoggedIn, require("./routes/settingRouter"));
+app.use("/scores", isLoggedIn, require("./routes/scoreRouter"));
+app.use("/reports", isLoggedIn, require("./routes/reportRouter"));
 app.get("/sync", (req, res) => {
   let models = require("./models");
   models.sequelize.sync().then(() => {
     res.send("database sync completed");
   });
 });
+app.use("/", isLoggedIn, require("./routes/indexRouter"));
+
 app.set("port", process.env.PORT || 5001);
 app.listen(app.get("port"), () => {
   console.log(`Server is running at port ${app.get("port")}`);
