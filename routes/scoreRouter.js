@@ -66,6 +66,7 @@ router.post("/update", async (req, res) => {
       `/scores?classroomId=${classroomId}&subjectId=${subjectId}&semester=${semester}&status=1`
     );
   } catch (err) {
+    console.log(err);
     return res.redirect(
       `/scores?classroomId=${classroomId}&subjectId=${subjectId}&semester=${semester}&status=0`
     );
