@@ -21,15 +21,21 @@ router.post("/create", async (req, res) => {
   const { name, year, grade } = req.body;
   const student = await classroomSerivce.create({ name, year, grade });
   if (student) {
-    res.render("classrooms/create", { message: "Created!" });
+    res.render("classrooms/create", {
+      message: "Tạo lớp học thành công!",
+      messageType: "success",
+    });
   } else {
-    res.render("classrooms/create", { message: "Error!" });
+    res.render("classrooms/create", {
+      message: "Đã có lỗi xảy ra vui lòng thử lại.",
+      messageType: "danger",
+    });
   }
 });
 
 router.get("/edit/:id", async (req, res) => {
   const classroom = await classroomSerivce.getById(req.params.id);
-  console.log(classroom);
+  // console.log(classroom);
   if (classroom) {
     return res.render("classrooms/edit", { classroom });
   } else {
@@ -105,7 +111,8 @@ router.post("/assign/:id", async (req, res) => {
         classroom,
         students,
         studentIds: JSON.stringify(studentIds),
-        message: "Cập nhật thất bại do số lượng học sinh vượt quá số lượng tối đa trong một lớp. Vui lòng thử lại.",
+        message:
+          "Cập nhật thất bại do số lượng học sinh vượt quá số lượng tối đa trong một lớp. Vui lòng thử lại.",
         messageType: "danger",
       });
     }
@@ -113,13 +120,12 @@ router.post("/assign/:id", async (req, res) => {
   // res.render('classrooms/assign', {classroom, students, studentIds: JSON.stringify(studentIds)});
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
     await classroomSerivce.delete(req.params.id);
-    res.status(200).json({state: true});
-  }
-  catch(err) {
-    res.status(500).json({state: false, message: err.message})
+    res.status(200).json({ state: true });
+  } catch (err) {
+    res.status(500).json({ state: false, message: err.message });
   }
 });
 

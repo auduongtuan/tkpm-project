@@ -89,7 +89,7 @@ router.post("/create", async (req, res) => {
       res.render("students/create", {
         message: "Tiếp nhận học sinh thành công!",
         messageType: "success",
-        student,
+        // student,
         classrooms,
       });
     } else {

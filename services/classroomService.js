@@ -97,7 +97,7 @@ service.getAllWithPassedQuantityBySubject = async(year, semester, subjectId) => 
     let passedQuantity = 0;
     for await (const student of classroom.students) {
       const score = await scoreService.getScoreByStudentSemesterSubject(student.id, year, semester, subjectId);      
-      if(score && score.scoreAverage > passScore) {
+      if(score && score.scoreAverage >= passScore) {
         passedQuantity++;
       }
     }
@@ -120,7 +120,7 @@ service.getAllWithPassedQuantityBySemester = async(year, semester) => {
       const scores = await scoreService.getScoresByStudentSemester(student.id, year, semester);
       let passedSubjectQuantity = 0;
       for await (const score of scores) {
-        if(score.scoreAverage > passScore) {
+        if(score.scoreAverage >= passScore) {
           passedSubjectQuantity++;
         }
       }
